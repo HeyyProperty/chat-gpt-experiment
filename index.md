@@ -1,4 +1,3 @@
-### ReadMe
 # Scheduling
 
 ## Overview
