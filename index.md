@@ -115,6 +115,8 @@
     <li>On disqualifying answers, STOP and output a single JSON object with <code>disqualified_reason</code> as specified.</li>
     <li>When all required info is collected, return ONLY one JSON object (no prose/markdown), then proceed to scheduling.</li>
     <li><strong>SAVE TO MEMORY:</strong> Store the final JSON for agent use on this page.</li>
+    <li><strong>INCOME THRESHOLD:</strong> Use the actual rent amount ($1,000) from the property details for the income verification question.</li>
+    <li><strong>QUESTION WORDING:</strong> Use specific, clear questions. For income: "Do you make at least $1,000 per month?" (not generic "meet rental requirements").</li>
   </ul>
 
   <h4>ALL QUESTIONS &amp; CONDITIONALS (Numbered)</h4>
@@ -161,7 +163,7 @@
         <li>IF Yes → <code>income_verifiable</code> (Yes | No) <strong>[required]</strong>
           <ol>
             <li>IF No → <strong>STOP</strong> and output JSON with <code>"disqualified_reason": "income_not_verifiable"</code></li>
-            <li>IF Yes → <code>makes_enough_income</code> (Yes | No) <strong>[required]</strong> <!-- threshold = $3,000 -->
+            <li>IF Yes → <code>makes_enough_income</code> (Yes | No) <strong>[required]</strong> <!-- Ask: "Do you make at least $1,000 per month?" -->
               <ol>
                 <li>IF Yes → <code>has_current_job_for_year</code> (Yes | No) <strong>[required]</strong>
                   <ol>
