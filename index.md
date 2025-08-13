@@ -225,7 +225,7 @@ If user asks to schedule a tour, follow these instructions:
     <h5 style="color: #007bff; margin-top: 0;">🎯 AGENT MODE ACTIONS:</h5>
     
     <ol>
-      <li><strong>Navigate to Sheduling link<li>
+      <li><strong>Navigate to Scheduling Link:</strong> Open the tour scheduling page using the provided link</li>
       <li><strong>Use Saved Data:</strong> Reference the intake information you collected (no need to ask user again except for picking time)</li>
       <li><strong>Fill Form Fields:</strong> Automatically populate the tour scheduling form with saved data:
         <ul>
