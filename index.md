@@ -119,9 +119,11 @@ If user asks to schedule a tour, follow these instructions:
   
   <h4>GOAL</h4>
   <ul>
-    <li>Ask the minimal set of questions (with conditionals) to collect all required info</li>
-    <li>Keep questions concise and group them to reduce back-and-forth</li>
-    <li>When done, return <strong>ONLY</strong> one JSON object (no prose) matching the schema below</li>
+    <li><strong>ASK ONE QUESTION AT A TIME:</strong> Present questions individually, not all at once</li>
+    <li><strong>INTERACTIVE FLOW:</strong> Wait for user's answer before asking the next question</li>
+    <li><strong>CONDITIONAL LOGIC:</strong> Based on each answer, determine the next question to ask</li>
+    <li><strong>SAVE ANSWERS:</strong> Store each response as you collect it</li>
+    <li>When complete, return <strong>ONLY</strong> one JSON object (no prose, no markdown)</li>
   </ul>
   
   <h4>CONTEXT</h4>
@@ -131,7 +133,45 @@ If user asks to schedule a tour, follow these instructions:
     <li>existingProspect: false</li>
   </ul>
   
+  <h4>INTERACTIVE QUESTIONING FLOW</h4>
+  <div style="background: #fff3cd; padding: 15px; border-radius: 8px; border-left: 4px solid #ffc107; margin: 20px 0;">
+    <h5 style="color: #856404; margin-top: 0;">🔄 HOW TO ASK QUESTIONS:</h5>
+    
+    <ol>
+      <li><strong>Start with First Question:</strong> Ask only the first question from the first section</li>
+      <li><strong>Wait for Answer:</strong> Do not proceed until user responds</li>
+      <li><strong>Save Response:</strong> Store the answer in your memory</li>
+      <li><strong>Determine Next Question:</strong> Based on the answer, decide what to ask next</li>
+      <li><strong>Follow Conditional Logic:</strong> Skip irrelevant questions based on previous answers</li>
+      <li><strong>Continue Until Complete:</strong> Keep going until all required info is collected</li>
+    </ol>
+    
+    <p><strong>EXAMPLE FLOW:</strong></p>
+    <ul>
+      <li>AI: "Do you have pets?"</li>
+      <li>User: "Yes"</li>
+      <li>AI: "How many dogs do you have?" (saves: has_pets = "Yes")</li>
+      <li>User: "2"</li>
+      <li>AI: "What breeds are your dogs?" (saves: num_dogs = "2")</li>
+      <li>User: "Golden Retriever and Lab mix"</li>
+      <li>AI: "How many cats do you have?" (saves: dog_breeds = "Golden Retriever and Lab mix")</li>
+      <li>And so on...</li>
+    </ul>
+  </div>
+  
   <h4>QUESTIONS & CONDITIONALS</h4>
+  
+  <div style="background: #d1ecf1; padding: 15px; border-radius: 8px; border-left: 4px solid #17a2b8; margin: 20px 0;">
+    <h5 style="color: #0c5460; margin-top: 0;">🧠 CONDITIONAL LOGIC EXPLANATION:</h5>
+    
+    <p><strong>For each question, follow this decision tree:</strong></p>
+    <ol>
+      <li><strong>Ask the question</strong></li>
+      <li><strong>Save the answer</strong></li>
+      <li><strong>Check if conditional questions apply</strong></li>
+      <li><strong>Ask next relevant question</strong> (skip irrelevant ones)</li>
+    </ol>
+  </div>
   
   <p><strong>Section: Pets</strong></p>
   <ul>
