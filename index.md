@@ -105,7 +105,10 @@
 
 ## 🚀 Schedule Tour
 
-If user asks to schedule a tour, before scheduling follow these instruction:
+If user asks to schedule a tour, follow these instructions:
+
+**PHASE 1: INTAKE** - Collect all required information first
+**PHASE 2: AGENT MODE** - Use collected data to complete tour scheduling on the page
 
 ## 🤖 AI Tour Intake Instructions
 
@@ -182,6 +185,7 @@ If user asks to schedule a tour, before scheduling follow these instruction:
   <h4>OUTPUT</h4>
   <ul>
     <li>Return ONLY a single JSON object. Omit keys not asked due to branching. No prose, no markdown.</li>
+    <li><strong>SAVE TO MEMORY:</strong> Store this JSON data in your conversation context for agent mode</li>
   </ul>
   
   <h4>JSON KEYS</h4>
@@ -213,6 +217,36 @@ If user asks to schedule a tour, before scheduling follow these instruction:
   "tour_preference": "...",
   "disqualified_reason": "income_not_verifiable|no_yearlong_history_last_3y"
 }</pre>
+
+  <h4>AGENT MODE INSTRUCTIONS</h4>
+  <p><strong>After collecting intake data, switch to AGENT MODE and:</strong></p>
+  
+  <div style="background: #e7f3ff; padding: 15px; border-radius: 8px; border-left: 4px solid #007bff; margin: 20px 0;">
+    <h5 style="color: #007bff; margin-top: 0;">🎯 AGENT MODE ACTIONS:</h5>
+    
+    <ol>
+      <li><strong>Navigate to Sheduling link<li>
+      <li><strong>Use Saved Data:</strong> Reference the intake information you collected (no need to ask user again except for picking time)</li>
+      <li><strong>Fill Form Fields:</strong> Automatically populate the tour scheduling form with saved data:
+        <ul>
+          <li>Name, Email, Phone from intake</li>
+          <li>Preferred move-in date</li>
+          <li>Tour preference (in-person/virtual)</li>
+          <li>Any other required fields</li>
+        </ul>
+      </li>
+      <li><strong>Handle Special Cases:</strong>
+        <ul>
+          <li>If disqualified → Explain reason and stop</li>
+          <li>If missing info → Ask only for what's needed</li>
+          <li>If all complete → Proceed with scheduling</li>
+        </ul>
+      </li>
+      <li><strong>Complete Scheduling:</strong> Submit the form and confirm tour details</li>
+    </ol>
+    
+    <p><strong>IMPORTANT:</strong> In agent mode, you are acting as the user's assistant to complete the tour scheduling process. Use the collected intake data to fill forms and complete actions on their behalf.</p>
+  </div>
 </div>
 
 ### Here is the link to the schedling
