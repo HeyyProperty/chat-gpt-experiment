@@ -163,8 +163,10 @@
         <li>IF Yes → <code>income_verifiable</code> (Yes | No) <strong>[required]</strong>
           <ol>
             <li>IF No → <strong>STOP</strong> and output JSON with <code>"disqualified_reason": "income_not_verifiable"</code></li>
-            <li>IF Yes → <code>makes_enough_income</code> - ask:
-                “Do you make at least <strong>$1,000</strong> per month?” (<strong>Yes</strong> | <strong>No</strong>) <strong>[required]</strong>
+            <li id="q-makes-enough-income" data-key="makes_enough_income">
+                IF Yes → <code>makes_enough_income</code> — ask:
+                “Do you make at least <strong>$<span id="income-threshold">1,000</span></strong> per month?”
+                (<strong>Yes</strong> | <strong>No</strong>) <strong>[required]</strong>
                 </li>
               <ol>
                 <li>IF Yes → <code>has_current_job_for_year</code> (Yes | No) <strong>[required]</strong>
