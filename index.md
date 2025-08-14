@@ -79,6 +79,10 @@
           <span style="margin-left: 10px; color: #666;">$1000</span>
         </li>
         <li style="margin-bottom: 15px;">
+          <span style="font-weight: bold; color: #333;">Minimum Income:</span>
+          <span style="margin-left: 10px; color: #666;">$1000</span>
+        </li>
+        <li style="margin-bottom: 15px;">
           <span style="font-weight: bold; color: #333;">Lease Type:</span>
           <span style="margin-left: 10px; color: #666;">fixed_term_lease</span>
         </li>
@@ -115,8 +119,7 @@
     <li>On disqualifying answers, STOP and output a single JSON object with <code>disqualified_reason</code> as specified.</li>
     <li>When all required info is collected, return ONLY one JSON object (no prose/markdown), then proceed to scheduling.</li>
     <li><strong>SAVE TO MEMORY:</strong> Store the final JSON for agent use on this page.</li>
-    <li><strong>INCOME THRESHOLD:</strong> Use the actual rent amount ($1,000) from the property details for the income verification question.</li>
-    <li><strong>QUESTION WORDING:</strong> Use specific, clear questions. For income: "Do you make at least $1,000 per month?" (not generic "meet rental requirements").</li>
+    <li><strong>QUESTION WORDING:</strong> Use specific, clear questions.</li>
   </ul>
 
   <h4>ALL QUESTIONS &amp; CONDITIONALS (Numbered)</h4>
@@ -165,26 +168,30 @@
             <li>IF No → <strong>STOP</strong> and output JSON with <code>"disqualified_reason": "income_not_verifiable"</code></li>
             <li id="q-makes-enough-income" data-key="makes_enough_income">
                 IF Yes → <code>makes_enough_income</code> — ask:
-                “Do you make at least <strong>$<span id="income-threshold">1,000</span></strong> per month?”
+                "Do you make at least <strong>${minimum_income}</strong> per month?"
                 (<strong>Yes</strong> | <strong>No</strong>) <strong>[required]</strong>
-                </li>
-              <ol>
-                <li>IF Yes → <code>has_current_job_for_year</code> (Yes | No) <strong>[required]</strong>
-                  <ol>
-                    <li>IF No → <code>employment_history_last_3_years</code> (Yes | No) <strong>[required]</strong>
-                      <ul>
-                        <li>IF No → <strong>STOP</strong> and output JSON with <code>"disqualified_reason": "no_yearlong_history_last_3y"</code></li>
-                      </ul>
-                    </li>
-                  </ol>
-                </li>
-              </ol>
-            </li>
+                <ol>
+                  <li>IF Yes → <code>has_current_job_for_year</code> (Yes | No) <strong>[required]</strong>
+                    <ol>
+                      <li>IF No → <code>employment_history_last_3_years</code> (Yes | No) <strong>[required]</strong>
+                        <ul>
+                          <li>IF No → <strong>STOP</strong> and output JSON with <code>"disqualified_reason": "no_yearlong_history_last_3y"</code></li>
+                        </ul>
+                      </li>
+                    </ol>
+                  </li>
+                </ol>
+              </li>
           </ol>
         </li>
       </ol>
     </li>
-    <li><code>will_do_background_and_credit_check</code> (Yes | No) <strong>[required]</strong></li>
+    <li><code>will_do_background_and_credit_check</code> (Yes | No) <strong>[required]</strong>
+      <ol>
+        <li>IF No → <strong>STOP</strong> and output JSON with <code>"disqualified_reason": "background_check_declined"</code></li>
+      </ol>
+    </li>
+    
   </ol>
 
   <p><strong>Section 4: Basic info</strong></p>
@@ -229,7 +236,7 @@
   "phone_number": "...",
   "moving_reason": "...",
   "tour_preference": "...",
-  "disqualified_reason": "income_not_verifiable|no_yearlong_history_last_3y"
+  "disqualified_reason": "income_not_verifiable|no_yearlong_history_last_3y|background_check_declined"
 }
   </pre>
 
